@@ -126,7 +126,9 @@ int main() {
     printMenu();
     cout << "Enter your choice: ";
     if (!(cin >> input)) {
+      // clear the error flags on the input stream
       cin.clear();
+      // clear the input buffer by ignoring characters
       cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       cout << "Invalid input. Please enter a number.\n";
       continue;
