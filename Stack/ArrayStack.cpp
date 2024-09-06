@@ -3,25 +3,79 @@
 using std::cin;  // using declaration
 using std::cout;
 
+/*
+Array-based Stack Implementation
+
+A stack is a fundamental data structure in computer science that follows the
+Last-In-First-Out (LIFO) principle. This means that the last element added to
+the stack is the first one to be removed.
+
+A array-based stack provides efficient O(1) time complexity for both push and
+pop operations, making it suitable for many applications where a fixed-size
+stack is needed.
+*/
 template <typename T>
 class ArrayStack {
  public:
   // constructor
   ArrayStack() : count(0) {}
 
+  /*
+  Initial:
+      +-----+
+   4  |     |
+      +-----+
+   3  |     |
+      +-----+
+   2  |     |
+      +-----+
+   1  |     |
+      +-----+
+   0  |     |  count = 0
+      +-----+
+
+  After 5 push:
+      +-----+
+   4  |  5  |  < top
+      +-----+
+   3  |  4  |
+      +-----+
+   2  |  3  |
+      +-----+
+   1  |  2  |
+      +-----+
+   0  |  1  |  count = 5
+      +-----+
+
+  After 2 pop:
+      +-----+
+   4  |     |
+      +-----+
+   3  |     |
+      +-----+
+   2  |  3  |  < top
+      +-----+
+   1  |  2  |
+      +-----+
+   0  |  1  |  count = 3
+      +-----+
+  */
+
   void push(T newVal) {
+    /* Adds an element to the top of the stack. */
     if (isFull()) {
       throw std::runtime_error("Error! Stack is full.\n");
     } else {
-      data[count++] = newVal;
+      arr[count++] = newVal;
     }
   }
 
   T pop() {
+    /* Removes and returns the top element from the stack. */
     if (isEmpty()) {
       throw std::runtime_error("Error! Stack is empty.\n");
     } else {
-      T topNum = data[--count];
+      T topNum = arr[--count];
       return topNum;
     }
   }
@@ -39,15 +93,15 @@ class ArrayStack {
       cout << "(Empty)\n";
     } else {
       for (int i = 0; i < count; i++) {
-        cout << data[i] << " ";
+        cout << arr[i] << " ";
       }
       cout << "\n";
     }
   }
 
  private:
-  const static std::size_t MAX_SIZE = 10;
-  T data[MAX_SIZE];
+  const static std::size_t MAX_SIZE = 5;
+  T arr[MAX_SIZE];
   std::size_t count;
 };
 
@@ -65,9 +119,10 @@ int main() {
     printMenu();
     cout << "Enter your choice: ";
     if (!(cin >> input)) {
-      cin.clear();  // clear the error flags on the input stream
-      cin.ignore(std::numeric_limits<std::streamsize>::max(),
-                 '\n');  // clear the input buffer by ignoring characters
+      // clear the error flags on the input stream
+      cin.clear();
+      // clear the input buffer by ignoring characters
+      cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       cout << "Invalid input. Please enter a number.\n";
       continue;
     }
@@ -92,14 +147,14 @@ int main() {
           if (cin >> num) {
             try {
               stack.push(num);
-            } catch (std::runtime_error& e) {
+            } catch (std::exception& e) {
               cout << e.what();
               break;
             }
           } else {
-            std::cout << "Invalid input. Stopping push operation.\n";
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cout << "Invalid input. Stopping push operation.\n";
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
           }
         }
@@ -137,3 +192,13 @@ void printMenu() {
   cout << "| 4. Exit      |\n";
   cout << "****************\n\n";
 }
+
+/*
+An example of a real-world situation:
+
+Let's think about the Undo Functionality in a Text Editor:
+The Undo Functionality is an array-based stack that stores previous states of
+the text. Each time text is added, the current state is pushed onto the stack.
+The undo operation pops the last state off the stack, effectively reverting the
+last change.
+*/
