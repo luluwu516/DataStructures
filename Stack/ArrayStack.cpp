@@ -152,6 +152,7 @@ int main() {
               break;
             }
           } else {
+            size = i;
             cout << "Invalid input. Stopping push operation.\n";
             cin.clear();
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
