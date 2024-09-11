@@ -65,6 +65,23 @@ int main() {
   return 0;
 }
 
+// Sample output:
+/*
+
+Enter numbers, or -1 to stop: 1 2 3 4 5 6 7 8 9 10 -1
+
+Enter number to search: 4
+
+
+Unsorted array:
+1 2 3 4 5 6 7 8 9 10
+Sorted array:
+1 2 3 4 5 6 7 8 9 10
+
+Number 4 is found in the sorted array at index 3
+
+*/
+
 template <typename T>
 void printArray(const std::vector<T>& nums) {
   if (!nums.size()) {
