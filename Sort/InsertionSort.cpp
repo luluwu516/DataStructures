@@ -15,18 +15,28 @@ Insertion sort is a simple sorting algorithm that builds the final sorted array
 one element at a time. It is adaptive, meaning it performs well for already
 substantially sorted data.
 
- Time Complexity
- +------------------+--------+
- | Best             | O(n)   |
- +------------------+--------+
- | Worst            | O(n^2) |
- +------------------+--------+
- | Average          | O(n^2) |
- +------------------+--------+
+Key characteristics:
+1. In-place algorithm: only requires a constant amount O(1) of additional memory
+space.
+2. Stable sort: maintains the relative order of equal elements.
+3. Online algorithm: can sort a list as it receives it.
 
- +------------------+--------+
- | Space Complexity | O(1)   |
- +------------------+--------+
+Time Complexity
+ +------------------+--------+-----------------------------------------------+
+ | Case             | Time   | Description                                   |
+ +------------------+--------+-----------------------------------------------+
+ | Best             | O(n)   | Array is already sorted                       |
+ | Worst            | O(n^2) | Array is in reverse order                     |
+ | Average          | O(n^2) | Random arrangement of elements                |
+ +------------------+--------+-----------------------------------------------+
+
+Space Complexity: O(1) - Sorts in-place, only uses a constant amount of extra
+memory.
+
+Comparison with other sorting algorithms:
+- More efficient than bubble sort and selection sort for small data sets
+- Less efficient than more advanced algorithms like quicksort, heapsort, or
+merge sort for larger datasets
 
 */
 
@@ -81,28 +91,152 @@ void printArray(const std::vector<T>& nums) {
 template <typename T>
 void insertionSort(std::vector<T>& arr) {
   std::size_t size = arr.size();
-  if (!size) {
+  // arrays of size 0 or 1 are already sorted
+  if (size <= 1) {
     return;
   }
 
-  // assume the first element in the array is sorted, so start at index 1
+  // iterate through the array, starting from the second element
   for (std::size_t next = 1; next < size; next++) {
-    // save the value of the next element for insertion
+    // store the current element as the key to be inserted
     T insertKey = arr[next];
 
-    // initialize the index for placing the element
+    // initialize the index for insertion
     std::size_t indexToMove = next;
 
-    // search for the location and move the elements
+    // move elements that are greater than the key to one position ahead of
+    // their current position
     while (indexToMove > 0 && insertKey < arr[indexToMove - 1]) {
-      // if it is not in ascending order, shift the element one slot to the
-      // right
+      // Shift element to the right
       arr[indexToMove] = arr[indexToMove - 1];
-      // update the indexToMove
+      // update the indexToMove to the left
       --indexToMove;
     }
 
-    // place the insert key back to the correct position
+    // insert the key in its correct position
     arr[indexToMove] = insertKey;
   }
 }
+
+/*
+Example:
+
+arr = {3, 1, 4, 2}
+size = 4
+    0     1     2     3
+ +-----+-----+-----+-----+
+ |  3  |  1  |  4  |  2  |
+ +-----+-----+-----+-----+
+
+Let's start an insertion sort!
+------------------------------------------------------------------
+next = 1:
+    0        1     2     3
+ +-----+  +-----+-----+-----+
+ |  3  |  |  1  |  4  |  2  |
+ +-----+  +-----+-----+-----+
+ Sorted        Unsorted
+
+ insertKey = arr[1] = 1
+ indexToMove = next = 1
+ arr[indexToMove - 1] = arr[0] = 3
+
+  Compare and shift:
+  indexToMove = 1
+                   0     1     2     3
+    +-----+     +-----+-----+-----+-----+
+    |  1  |     |  3  |  3  |  4  |  2  |
+    +-----+     +-----+-----+-----+-----+
+   insertKey             ^
+                     indexToMove
+
+  indexToMove = 0
+                   0     1     2     3
+    +-----+     +-----+-----+-----+-----+
+    |  1  |     |  3  |  3  |  4  |  2  |
+    +-----+     +-----+-----+-----+-----+
+   insertKey       ^
+              indexToMove
+
+insert the key (1) in its correct position (0)
+    0     1        2     3
+ +-----+-----+  +-----+-----+
+ |  1  |  3  |  |  4  |  2  |
+ +-----+-----+  +-----+-----+
+    Sorted         Unsorted
+
+------------------------------------------------------------------
+next = 2:
+    0     1        2     3
+ +-----+-----+  +-----+-----+
+ |  1  |  3  |  |  4  |  2  |
+ +-----+-----+  +-----+-----+
+    Sorted         Unsorted
+
+ insertKey = arr[2] = 4
+ indexToMove = next = 2
+ arr[indexToMove - 1] = arr[1] = 3
+
+  Compare and shift:
+  insertKey > arr[indexToMove - 1] => 4 > 3 => end the while loop
+
+insert the key (4) in its correct position (2)
+    0     1     2        3
+ +-----+-----+-----+  +-----+
+ |  1  |  3  |  4  |  |  2  |
+ +-----+-----+-----+  +-----+
+        Sorted        Unsorted
+------------------------------------------------------------------
+next = 3:
+    0     1     2        3
+ +-----+-----+-----+  +-----+
+ |  1  |  3  |  4  |  |  2  |
+ +-----+-----+-----+  +-----+
+        Sorted        Unsorted
+
+ insertKey = arr[3] = 2
+ indexToMove = next = 3
+ arr[indexToMove - 1] = arr[2] = 4
+
+  Compare and shift:
+  indexToMove = 3
+                   0     1     2     3
+    +-----+     +-----+-----+-----+-----+
+    |  2  |     |  1  |  3  |  4  |  4  |
+    +-----+     +-----+-----+-----+-----+
+   insertKey                         ^
+                                indexToMove
+
+  indexToMove = 2
+                   0     1     2     3
+    +-----+     +-----+-----+-----+-----+
+    |  2  |     |  1  |  3  |  3  |  4  |
+    +-----+     +-----+-----+-----+-----+
+   insertKey                   ^
+                          indexToMove
+
+  indexToMove = 1
+                   0     1     2     3
+    +-----+     +-----+-----+-----+-----+
+    |  2  |     |  1  |  3  |  3  |  4  |
+    +-----+     +-----+-----+-----+-----+
+   insertKey             ^
+                    indexToMove
+
+  insertKey > arr[indexToMove - 1] => 2 > 1 => end the while loop
+
+insert the key (2) in its correct position (1)
+    0     1     2     3
+ +-----+-----+-----+-----+
+ |  1  |  2  |  3  |  4  |
+ +-----+-----+-----+-----+
+           Sorted
+------------------------------------------------------------------
+
+The sorted array:
+arr = {1, 2, 3, 4}
+ +-----+-----+-----+-----+
+ |  1  |  2  |  3  |  4  |
+ +-----+-----+-----+-----+
+
+*/
