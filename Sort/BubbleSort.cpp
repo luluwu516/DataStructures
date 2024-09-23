@@ -15,18 +15,20 @@ Bubble sort is a sorting algorithm that repeatedly steps through a list,
 compares adjacent elements, and swaps them if they're in the wrong order. This
 process is repeated until the entire list is sorted.
 
- Time Complexity
- +------------------+--------+
- | Best             | O(n)   |    // If the array is already sorted
- +------------------+--------+
- | Worst            | O(n^2) |
- +------------------+--------+
- | Average          | O(n^2) |
- +------------------+--------+
+Key characteristics:
 
- +------------------+--------+
- | Space Complexity | O(1)   |
- +------------------+--------+
+
+ Time Complexity
+ +------------------+--------+-----------------------------------------------+
+ | Case             | Time   | Description                                   |
+ +------------------+--------+-----------------------------------------------+
+ | Best             | O(n)   | Array is already sorted                       |
+ | Worst            | O(n^2) | Array is in reverse order                     |
+ | Average          | O(n^2) | Random arrangement of elements                |
+ +------------------+--------+-----------------------------------------------+
+
+ Space Complexity: O(1) - Sorts in-place, only uses a constant amount of extra
+ memory.
 
 */
 
@@ -75,26 +77,27 @@ void printArray(const std::vector<T>& nums) {
   cout << "\n";
 }
 
-// it requires two loops:
-// the number of comparisons is: (n-1) + (n-2) + (n-3) +.....+ 1 = n(n-1)/2
+// Bubble Sort Implementation
+// the number of comparisons is: (n-1) + (n-2) + (n-3) +.....+ 1 = n (n - 1) / 2
 // Complexity: O(n^2)
 template <typename T>
 void bubbleSort(std::vector<T>& arr) {
   std::size_t size = arr.size();
-  if (!size) {
+  // arrays of size 0 or 1 are already sorted
+  if (size <= 1) {
     return;
   }
 
   // for bubble sort, each iteration takes the largest (ascending order) to the
   // last position
   for (std::size_t step = 0; step < size - 1; step++) {
-    // check if swapping occurs in this step
+    // flag to optimize for already sorted arrays
     bool isSwapped = false;
 
-    // loop to access each array element and compare it with the next element
+    // in each iteration, the largest unsorted element "bubbles up" to its
+    // correct position
     for (std::size_t i = 0; i < size - 1 - step; i++) {
-      // sort in ascending order, so if arr[i] greater arr[i + 1], swap two
-      // elements
+      // compare adjacent elements and swap if they're in the wrong order
       if (arr[i] > arr[i + 1]) {
         // T temp = arr[i];
         // arr[i] = arr[i + 1];
@@ -105,9 +108,9 @@ void bubbleSort(std::vector<T>& arr) {
       }
     }
 
-    // if no swapping occurs, which means the array is sorted, then break the
-    // loop
+    // if no swapping occurred in this pass, the array is already sorted
     if (!isSwapped) {
+      // break the loop
       break;
     }
   }
@@ -123,34 +126,49 @@ size = 3
  +-----+-----+-----+
 
 Let's start a bubble sort!
-step = 0:
- isSwapped == false
- i < size - 1 - step (3 - 1 - 0)
- i < 2
-+---------------------+-------------+---------------------+
-| i = 0               | i[0] > i[1] | isSwapped == true   |
-| +-----+-----+-----+ |  3   >  1   | +-----+-----+-----+ |
-| |  3  |  1  |  2  | +-------------+ |  1  |  3  |  2  | |
-| +-----+-----+-----+ |    True     | +-----+-----+-----+ |
-+---------------------+-------------+---------------------+
-| i = 1               | i[0] > i[1] | isSwapped == true   |
-| +-----+-----+-----+ |  3   >  2   | +-----+-----+-----+ |
-| |  1  |  3  |  2  | +-------------+ |  1  |  2  |  3  | |
-| +-----+-----+-----+ |    True     | +-----+-----+-----+ |
-+---------------------+-------------+---------------------+
++----------------------------------------------------------+
+|                        step = 0                          |
++----------------------------------------------------------+
+  i = 0
+     0     1     2
+  +-----+-----+-----+
+  |  3  |  1  |  2  |
+  +-----+-----+-----+
+     ^     ^
+  arr[0] arr[1]
 
-step = 1:
- isSwapped == false
- i < size - 1 - step (3 - 1 - 1)
- i < 1
-+---------------------+--------------+---------------------+
-| i = 0               | i[0] !> i[1] | no swapping!        |
-| +-----+-----+-----+ |  1   !>  2   |                     |
-| |  1  |  2  |  3  | +--------------+                     |
-| +-----+-----+-----+ |    False     |                     |
-+---------------------+--------------+---------------------+
- !isSwapped == true -> break the loop!
+  isSwapped = true
+  +-----+-----+-----+
+  |  1  |  3  |  2  |
+  +-----+-----+-----+
 
++----------------------------------------------------------+
+  i = 1
+     0     1     2
+  +-----+-----+-----+
+  |  1  |  3  |  2  |
+  +-----+-----+-----+
+           ^     ^
+         arr[1] arr[2]
+
+  isSwapped = true
+  +-----+-----+-----+
+  |  1  |  2  |  3  |
+  +-----+-----+-----+
+
++----------------------------------------------------------+
+|                        step = 1                          |
++----------------------------------------------------------+
+  i = 0
+     0     1     2
+  +-----+-----+-----+
+  |  1  |  2  |  3  |
+  +-----+-----+-----+
+     ^     ^
+  arr[0] arr[1]
+  isSwapped = false
+
+------------------------------------------------------------
 The sorted array:
 arr = {1, 2, 3}
  +-----+-----+-----+
