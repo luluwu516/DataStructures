@@ -32,13 +32,13 @@ subarrays.
 iterative versions exist.
 
  Time Complexity
- +------------------+-----------+-----------------------------------------------+
- | Case             | Time      | Description |
- +------------------+-----------+-----------------------------------------------+
- | Best             | O(n logn) | Array is already sorted | | Worst            |
-O(n logn) | Array is in reverse order                     | | Average          |
-O(n logn) | Random arrangement of elements                |
- +------------------+-----------+-----------------------------------------------+
+ +------------------+------------+-------------------------------------------+
+ | Case             | Time       | Description                               |
+ +------------------+------------+-------------------------------------------+
+ | Best             | O(n log n) | Array is already sorted                   |
+ | Worst            | O(n log n) | Array is in reverse order                 |
+ | Average          | O(n log n) | Random arrangement of elements            |
+ +------------------+------------+-------------------------------------------+
 
  Space Complexity: O(n) - Not sorts in-place.
  * It requires additional space to store the temporary arrays during the merging
