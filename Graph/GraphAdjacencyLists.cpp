@@ -91,8 +91,9 @@ class GraphAdjacencyList {
     vertexLabels.resize(MAX_VERTICES);
   }
 
-  // Destructor
+  // destructor
   ~GraphAdjacencyList() {
+    // free dynamically allocated memory
     for (int i = 0; i < numVertices; i++) {
       Node* curr = adjacencyList[i];
       while (curr) {
@@ -129,23 +130,7 @@ class GraphAdjacencyList {
         adjacencyList[index] = nullptr;
       } else {
         // remove edges to the deleted vertex from other lists
-        Node* curr = adjacencyList[i];
-        Node* prev = nullptr;
-        while (curr) {
-          if (curr->label == label) {
-            if (prev) {
-              prev->next = curr->next;
-            } else {
-              adjacencyList[i] = curr->next;
-            }
-            Node* temp = curr;
-            curr = curr->next;
-            delete temp;
-          } else {
-            prev = curr;
-            curr = curr->next;
-          }
-        }
+        removeDirectedEdge(i, index);
       }
     }
 
@@ -236,6 +221,7 @@ class GraphAdjacencyList {
     }
     return -1;
   }
+
   void removeDirectedEdge(const int& src, const int& des) {
     Node* curr = adjacencyList[src];
     Node* prev = nullptr;
@@ -264,16 +250,16 @@ int main() {
   int weight;
   std::stringstream stream;
 
-  // input and processing
+  // input vertices
   cout << "\nEnter the label for each vertices: ";
   getline(cin, labels);
   stream << labels;
   while (stream >> label) {
-    // cout << label << " ";
     graph.addVertex(label);
   }
   stream.clear();
 
+  // input edges
   cout << "\nDefine an edge by listing a pair of vertices, i.e. 'AB', "
           "or -1 to finish: ";
   getline(cin, labels);
@@ -293,11 +279,13 @@ int main() {
     getline(cin, labels);
   }
 
+  // print initial graph
   cout << "\n\nInitial Graph:\n";
   graph.printVertices();
   cout << "\n";
   graph.printEdges();
 
+  // remove edges
   std::cout << "\nEnter an edge to remove (e.g., 'AB') or -1 to finish: ";
   std::cin >> labels;
   while (labels != "-1") {
@@ -315,12 +303,13 @@ int main() {
     std::cin >> labels;
   }
 
-  // Print graph after edge removal
+  // print graph after edge removal
   std::cout << "\nGraph after edge removal:\n";
   graph.printVertices();
   std::cout << "\n";
   graph.printEdges();
 
+  // remove vertices
   std::cout << "\nEnter a vertex to remove or -1 to finish: ";
   std::cin >> labels;
 
@@ -339,7 +328,7 @@ int main() {
     std::cin >> labels;
   }
 
-  // Print final graph
+  // print final graph
   std::cout << "\nFinal Graph:\n";
   graph.printVertices();
   std::cout << "\n";
@@ -390,6 +379,15 @@ Edges from e:
  To c with weight 5
  To a with weight 3
 
+ +-----+ 1 +-----+ 4 +-----+
+ |  A  |---|  B  |---|  C  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+    | 2  \ 3       / 5
+    |     \       /
+ +--+--+   +-----+
+ |  D  |   |  E  |
+ +-----+   +-----+
 
 Enter an edge to remove (e.g., 'AB') or -1 to finish: ab
 Edge removed.
@@ -418,6 +416,15 @@ Edges from e:
  To c with weight 5
  To a with weight 3
 
+ +-----+   +-----+ 4 +-----+
+ |  A  |   |  B  |---|  C  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+    | 2  \ 3       / 5
+    |     \       /
+ +--+--+   +-----+
+ |  D  |   |  E  |
+ +-----+   +-----+
 
 Enter a vertex to remove or -1 to finish: d
 Vertex removed.
@@ -441,5 +448,15 @@ Edges from c:
 Edges from e:
  To c with weight 5
  To a with weight 3
+
+ +-----+   +-----+ 4 +-----+
+ |  A  |   |  B  |---|  C  |
+ +--+--+   +-----+   +-----+
+        \           /
+         \ 3       / 5
+          \       /
+           +-----+
+           |  E  |
+           +-----+
 
 */
