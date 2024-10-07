@@ -11,22 +11,41 @@ template <typename T>
 T binarySearch(const std::vector<T>, const T);
 
 /*
-
 Binary search is an efficient algorithm for finding a specific element in a
 sorted array or list. It works by repeatedly dividing the search interval in
 half, significantly reducing the number of elements that need to be checked
 compared to a linear search.
 
- +------------------+----------+
- | Time Complexity  | O(log n) |
- +------------------+----------+
+ Characteristics:
+ * Requires sorted data
+ * Uses divide-and-conquer approach
+ * Efficient for large datasets
 
-Limitations:
-1. The data must be sorted before searching.
-2. It's only applicable to data structures that allow random access, like
-arrays.
-3. For small datasets, simpler algorithms like linear search might be faster due
-to less overhead.
+ Space Complexity: O(1) - Linear search uses a constant amount of extra space
+ regardless of the input size:
+ * It only uses a few variables (loop counter, array reference, target value)
+ * No additional data structures are created
+
+ Time Complexity
+ +---------------+----------+-------------------------------------------------+
+ | Case          | Time     | Description                                     |
+ +---------------+----------+-------------------------------------------------+
+ | Best          | O(1)     | The target element is the middle element.       |
+ | Worst/Average | O(log n) | In each step, the search space is divided by 2. |
+ |               |          | The process continues until the search space is |
+ |               |          | reduced to 1. The search ends when n = 2^k.     |
+ +---------------+----------+-------------------------------------------------+
+
+ Pros:
+ * Very efficient for large sorted datasets
+ * Logarithmic time complexity
+ * Requires no additional memory
+
+ Cons:
+ * Only works on sorted arrays
+ * Not efficient for small datasets compared to linear search
+ * Requires the data to be stored in a structure allowing random access (like an
+   array)
 
 */
 
@@ -103,9 +122,9 @@ T binarySearch(const std::vector<T> arr, const T valToSearch) {
     // avoid potential overflow
     mid = left + (right - left) / 2;
     if (arr[mid] == valToSearch) {
-      return mid;       // value is found!
+      return mid;  // value is found!
     } else if (arr[mid] < valToSearch) {
-      left = mid + 1;   // value is in the right half
+      left = mid + 1;  // value is in the right half
     } else {
       right = mid - 1;  // value is in the left half
     }
@@ -115,21 +134,21 @@ T binarySearch(const std::vector<T> arr, const T valToSearch) {
 }
 
 /*
-Example:
 
-valToSearch = 4
-arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, size = 10
-left = 0, right = 9
+arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+size = 10
 
     0     1     2     3     4     5     6     7     8     9
  +-----+-----+-----+-----+-----+-----+-----+-----+-----+------+
  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10  |
  +-----+-----+-----+-----+-----+-----+-----+-----+-----+------+
-    ^                                                      ^
-  left                                                   right
+
+valToSearch = 4
 
 Let's start a binary search!
- Loop 1:
++--------------------------------------------------------------+
+ Step 1:
+
      0     1     2     3     4     5     6     7     8     9
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+------+
   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10  |
@@ -145,7 +164,9 @@ Let's start a binary search!
      ^                 ^     ^
    left              right  mid
 
- Loop 2:
++--------------------------------------------------------------+
+ Step 2:
+
      0     1     2     3     4     5     6     7     8     9
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+------+
   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10  |
@@ -161,7 +182,9 @@ Let's start a binary search!
            ^     ^     ^
           mid  left   right
 
- Loop 3:
++--------------------------------------------------------------+
+ Step 3:
+
      0     1     2     3     4     5     6     7     8     9
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+------+
   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10  |
@@ -179,7 +202,9 @@ Let's start a binary search!
                 mid  right
                       left
 
-Loop 4:
++--------------------------------------------------------------+
+ Step 4:
+
      0     1     2     3     4     5     6     7     8     9
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+------+
   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10  |
@@ -189,6 +214,24 @@ Loop 4:
                       left
                       mid
   Value is found!
+  nums[3] == valToSearch == 4
   Return index 3
++--------------------------------------------------------------+
+Result:
+ Number 4 is found in the sorted array at index 3
+
+*/
+
+/*
+
+Comparison with Linear Search:
+ +---------------------------------+--------+----------+
+ | Aspect                          | Linear | Binary   |
+ +---------------------------------+--------+----------+
+ | Time Complexity (Worst/Average) | O(n)   | O(log n) |
+ | Time Complexity (Best)          | O(1)   | O(1)     |
+ | Space Complexity                | O(1)   | O(1)     |
+ | Requires Sorted Data            | No     | Yes      |
+ +---------------------------------+--------+----------+
 
 */
