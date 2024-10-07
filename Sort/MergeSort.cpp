@@ -64,6 +64,7 @@ int main() {
   mergeSort(nums, 0, nums.size() - 1);
 
   // output
+  cout << "\n\nResult: \n";
   cout << "Sorted array:\n";
   printArray(nums);
   cout << "\n";
@@ -71,42 +72,44 @@ int main() {
   return 0;
 }
 
-// Output:
-/*
-Enter numbers, or EOF to stop: 5 4 3 2 1 ^D
-
-Original array:
-5 4 3 2 1
-Sorted array:
-1 2 3 4 5
-*/
-
 template <typename T>
 void printArray(const std::vector<T>& nums) {
   if (!nums.size()) {
     cout << "(Empty)";
   }
-  for (auto n : nums) {
-    cout << n << " ";
+  size_t size = nums.size();
+  cout << "[ ";
+  for (int i = 0; i < size; i++) {
+    if (i == size - 1) {
+      cout << nums[i];
+      break;
+    }
+    cout << nums[i] << ", ";
   }
-  cout << "\n";
+  cout << " ]\n";
 }
 
 // Merge Sort Implementation
 // Complexity: O(n log n)
 template <typename T>
-void mergeSort(std::vector<T>& arr, int lefint, int right) {
+void mergeSort(std::vector<T>& arr, int left, int right) {
   // Base Case: if the subarray has more than one element
   if (left < right) {
     // calculate the middle index, avoiding potential overflow
     // it's equal to `(left + right) / 2`
     T mid = left + (right - left) / 2;
 
+    cout << "\nRecursively call mergeSort function on the LEFT half array "
+            "until there is only one element...\n";
     // divide the left half array to half recursively
     mergeSort(arr, left, mid);
+
+    cout << "\nRecursively call mergeSort function on the RIGHT half array "
+            "until there is only one element...\n";
     // divide the right half array to half recursively
     mergeSort(arr, mid + 1, right);
 
+    cout << "\nStart merging... \n";
     // merge the sorted halves
     merge(arr, left, mid, right);
   }
@@ -115,6 +118,9 @@ void mergeSort(std::vector<T>& arr, int lefint, int right) {
 // utility function to merge two sorted subarrays
 template <typename T>
 void merge(std::vector<T>& arr, int left, int mid, int right) {
+  cout << " Before this merging, arr: ";
+  printArray(arr);
+
   // calculate sizes of two subarrays to be merged
   int n1 = mid - left + 1;
   int n2 = right - mid;
@@ -123,12 +129,27 @@ void merge(std::vector<T>& arr, int left, int mid, int right) {
   std::vector<T> L(n1), R(n2);
 
   // Copy data to temporary arrays L[] and R[]
+  cout << " Left subarray  (index " << left << " to index " << mid << ") : [ ";
   for (std::size_t i = 0; i < n1; i++) {
     L[i] = arr[left + i];
+    if (i == n1 - 1) {
+      cout << L[i] << " ";
+      break;
+    }
+    cout << L[i] << ", ";
   }
-  for (int j = 0; j < n2; j++) {
+
+  cout << "]\n Right subarray (index " << mid + 1 << " to index " << right
+       << ") : [ ";
+  for (std::size_t j = 0; j < n2; j++) {
     R[j] = arr[mid + 1 + j];
+    if (j == n2 - 1) {
+      cout << R[j] << " ";
+      break;
+    }
+    cout << R[j] << ", ";
   }
+  cout << "]\n";
 
   // merge the temporary arrays back into arr
   int i = 0, j = 0, k = left;
@@ -158,10 +179,13 @@ void merge(std::vector<T>& arr, int left, int mid, int right) {
     j++;
     k++;
   }
+
+  cout << "\n After this merging, arr : ";
+  printArray(arr);
 }
 
 /*
-Example:
+Visualize Diagram:
 
 arr = {3, 1, 4, 2}
 size = 4
@@ -297,5 +321,60 @@ arr = {1, 2, 3, 4}
  +-----+-----+-----+-----+
  |  1  |  2  |  3  |  4  |
  +-----+-----+-----+-----+
+
+*/
+
+// Output:
+/*
+
+Enter numbers, or EOF to stop: 3 1 4 2
+^D
+
+Unsorted array:
+[ 3, 1, 4, 2 ]
+
+Recursively call mergeSort function on the LEFT half array until there is only
+one element...
+
+Recursively call mergeSort function on the LEFT half array until there is only
+one element...
+
+Recursively call mergeSort function on the RIGHT half array until there is only
+one element...
+
+Start merging...
+ Before this merging, arr: [ 3, 1, 4, 2 ]
+ Left subarray  (index 0 to index 0) : [ 3 ]
+ Right subarray (index 1 to index 1) : [ 1 ]
+
+ After this merging, arr : [ 1, 3, 4, 2 ]
+
+Recursively call mergeSort function on the RIGHT half array until there is only
+one element...
+
+Recursively call mergeSort function on the LEFT half array until there is only
+one element...
+
+Recursively call mergeSort function on the RIGHT half array until there is only
+one element...
+
+Start merging...
+ Before this merging, arr: [ 1, 3, 4, 2 ]
+ Left subarray  (index 2 to index 2) : [ 4 ]
+ Right subarray (index 3 to index 3) : [ 2 ]
+
+ After this merging, arr : [ 1, 3, 2, 4 ]
+
+Start merging...
+ Before this merging, arr: [ 1, 3, 2, 4 ]
+ Left subarray  (index 0 to index 1) : [ 1, 3 ]
+ Right subarray (index 2 to index 3) : [ 2, 4 ]
+
+ After this merging, arr : [ 1, 2, 3, 4 ]
+
+
+Result:
+Sorted array:
+[ 1, 2, 3, 4 ]
 
 */
