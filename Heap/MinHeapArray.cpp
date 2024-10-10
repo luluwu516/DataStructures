@@ -38,11 +38,11 @@ minimum element in the heap.
  | Delete Minimum   | O(log n)   | Deleting the root involves replacing it    |
  |                  |            | with the last element, removing it, and    |
  |                  |            | then performing a heapify down operation.  |
-  +------------------+------------+-------------------------------------------+
+ +------------------+------------+--------------------------------------------+
 
  Pros:
  * Efficient access to the minimum element (O(1))
- * Efficient insertion and deletion operations  (O(log n))
+ * Efficient insertion and deletion operations (O(log n))
  * Space-efficient (can be implemented as an array)  <-- we will apply it here
  * Useful for priority queue implementations
 
@@ -76,7 +76,7 @@ class MinHeap {
   void insert(T newData) {
     heap.push_back(newData);
     // maintain heap property
-    heapifyUp(heap.size() - 1);
+    heapifyUp(size() - 1);
   }
 
   T extractMin() {
@@ -486,7 +486,7 @@ Insert 4:
                      ^                 ^
                    parent            child
 
-parent is greater than child, so let's swap and update the index
+ parent is greater than child, so let's swap and update the index
 
          0     1     2     3     4     5
       +-----+-----+-----+-----+-----+-----+
@@ -591,7 +591,7 @@ Initial Tree:
   |  7  |   |  5  |     |  6  |
   +-----+   +-----+     +-----+
 
-assume index is the minIndex and let's compare with its children
+Assume index is the minIndex and let's compare with its children
 
          0     1     2     3     4     5
       +-----+-----+-----+-----+-----+-----+
@@ -601,7 +601,7 @@ assume index is the minIndex and let's compare with its children
        index left  right
       minIndex
 
-compare with left child first. The left child is smaller, so it should be
+Compare with left child first. The left child is smaller, so it should be
 minIndex
 
          0     1     2     3     4     5
@@ -612,7 +612,7 @@ minIndex
        index left  right
            minIndex
 
-compare with right child next. The right child is smaller, so it should be
+Compare with right child next. The right child is smaller, so it should be
 minIndex
 
          0     1     2     3     4     5
@@ -654,21 +654,23 @@ minIndex != index, so let's swap
   +-----+   +-----+     +-----+
 
 +---------------------------------------------------------------------+
+Let's remove one more data.
+
+         0     1     2     3     4     5
+      +-----+-----+-----+-----+-----+-----+
+ heap |  2  |  3  |  4  |  7  |  5  |  6  |
+      +-----+-----+-----+-----+-----+-----+
+
+
+                  0     1     2     3     4
+ +-----+       +-----+-----+-----+-----+-----+
+ |  2  |  heap |  6  |  3  |  4  |  7  |  5  |
+ +-----+       +-----+-----+-----+-----+-----+
+   min            ^
+                index
 
                   +-----+
-                  |     |
-                  +-----+
-                 /       \
-          +-----+         +-----+
-          |  3  |         |  4  |
-          +-----+         +-----+
-         /       \       /
-  +-----+   +-----+     +-----+
-  |  7  |   |  5  |     |  6  |
-  +-----+   +-----+     +-----+
-
-                  +-----+
-                  |  6  |
+                  |  6  | <-- Hey, 6 is not the smallest
                   +-----+
                  /       \
           +-----+         +-----+
@@ -678,6 +680,55 @@ minIndex != index, so let's swap
   +-----+   +-----+
   |  7  |   |  5  |
   +-----+   +-----+
+
+Assume index is the minIndex and let's compare with its children
+
+         0     1     2     3     4
+      +-----+-----+-----+-----+-----+
+ heap |  6  |  3  |  4  |  7  |  5  |
+      +-----+-----+-----+-----+-----+
+         ^     ^     ^
+       index left  right
+      minIndex
+
+Compare with left child first. The left child is smaller, so it should be
+minIndex
+
+         0     1     2     3     4
+      +-----+-----+-----+-----+-----+
+ heap |  6  |  3  |  4  |  7  |  5  |
+      +-----+-----+-----+-----+-----+
+         ^     ^     ^
+       index left  right
+            minIndex
+
+Compare with right child next. The left child is still smaller.
+
+         0     1     2     3     4
+      +-----+-----+-----+-----+-----+
+ heap |  6  |  3  |  4  |  7  |  5  |
+      +-----+-----+-----+-----+-----+
+         ^     ^     ^
+       index left  right
+            minIndex
+
+Now, let's check if index and minIndex are the same
+
+         0     1     2     3     4
+      +-----+-----+-----+-----+-----+
+ heap |  6  |  3  |  4  |  7  |  5  |
+      +-----+-----+-----+-----+-----+
+         ^     ^
+       index minIndex
+
+minIndex != index, so let's swap
+
+         0     1     2     3     4
+      +-----+-----+-----+-----+-----+
+ heap |  3  |  6  |  4  |  7  |  5  |
+      +-----+-----+-----+-----+-----+
+         ^     ^
+       index minIndex
 
                   +-----+
                   |  3  |
@@ -688,25 +739,49 @@ minIndex != index, so let's swap
           +-----+         +-----+
          /       \
   +-----+   +-----+
-  |  7  |   |  5  |
+  |  7  |   |  5  |  <-- 5 is smaller than 6!
   +-----+   +-----+
 
-                  +-----+
-                  |  3  |
-                  +-----+
-                 /       \
-          +-----+         +-----+
-          |  5  |         |  4  |
-          +-----+         +-----+
-         /       \
-  +-----+   +-----+
-  |  7  |   |  6  |
-  +-----+   +-----+
+We haven't finished yet. now index = 1
+
+         0     1     2     3     4
+      +-----+-----+-----+-----+-----+
+ heap |  3  |  6  |  4  |  7  |  5  |
+      +-----+-----+-----+-----+-----+
+               ^           ^     ^
+             index        left right
+            minIndex
+
+
+Compare with left and right child
+
+         0     1     2     3     4
+      +-----+-----+-----+-----+-----+
+ heap |  3  |  6  |  4  |  7  |  5  |
+      +-----+-----+-----+-----+-----+
+               ^           ^     ^
+             index        left right
+                              minIndex
+
+Since index != minIndex, let's swap!
 
          0     1     2     3     4
       +-----+-----+-----+-----+-----+
  heap |  3  |  5  |  4  |  7  |  6  |
       +-----+-----+-----+-----+-----+
+               ^                 ^
+             index            minIndex
+
+Now, index = 4
+
+         0     1     2     3     4
+      +-----+-----+-----+-----+-----+
+ heap |  3  |  5  |  4  |  7  |  6  |
+      +-----+-----+-----+-----+-----+
+                                 ^
+                               index
+
+Everything satisfies the heap property. We done!
 
 +=====================================================================+
 Final Tree:
