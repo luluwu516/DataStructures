@@ -69,9 +69,11 @@ class MaxHeap {
   };
 
   Node* root;
+  // pointer to the last node (for efficient insertion/deletion)
   Node* lastNode;
 
   void swap(Node* a, Node* b) {
+    // swap the data
     T temp = a->data;
     a->data = b->data;
     b->data = temp;
@@ -86,13 +88,16 @@ class MaxHeap {
 
   void heapifyDown(Node* node) {
     Node* maxNode = node;
+    // check if left child is larger
     if (node->left && node->left->data > maxNode->data) {
       maxNode = node->left;
     }
+    // check if right child is larger
     if (node->right && node->right->data > maxNode->data) {
       maxNode = node->right;
     }
 
+    // if a child is larger, swap and continue heapifying
     if (maxNode != node) {
       swap(maxNode, node);
       heapifyDown(maxNode);
@@ -100,6 +105,7 @@ class MaxHeap {
   }
 
   Node* findLastParent() {
+    // find the parent node where a new node should be inserted
     if (isEmpty()) {
       return nullptr;
     }
@@ -112,6 +118,7 @@ class MaxHeap {
       Node* current = q.front();
       q.pop();
 
+      // if we find a node with less than two children, it's our insertion point
       if (!current->left || !current->right) {
         lastParent = current;
         break;
@@ -124,15 +131,25 @@ class MaxHeap {
     return lastParent;
   }
 
+  void deleteAllNodes(Node* node) {
+    if (node == nullptr) {
+      return;
+    }
+
+    // post-order traversal
+    deleteAllNodes(node->left);
+    deleteAllNodes(node->right);
+
+    // delete the current node
+    delete node;
+  }
+
  public:
   // constructor
   MaxHeap() : root(nullptr), lastNode(nullptr) {}
 
   // destructor
-  ~MaxHeap() {
-    Node* curr = root;
-    // TO-DO
-  }
+  ~MaxHeap() { deleteAllNodes(root); }
 
   void insert(T newData) {
     Node* newNode = new Node(newData);
@@ -170,6 +187,7 @@ class MaxHeap {
       root->data = lastNode->data;
 
       Node* lastParent = lastNode->parent;
+      // remove the last node
       // check the right node first
       if (lastParent->right == lastNode) {
         delete lastParent->right;
@@ -186,6 +204,7 @@ class MaxHeap {
     return maxValue;
   }
 
+  // Get the maximum data (root's data) without removing it
   T getMax() {
     if (isEmpty()) {
       throw std::out_of_range("Error! Heap is empty.\n");
@@ -193,6 +212,7 @@ class MaxHeap {
     return root->data;
   }
 
+  // find the last node in the heap (rightmost node in the last level)
   Node* findLastNode() {
     if (isEmpty()) {
       return nullptr;
@@ -219,6 +239,7 @@ class MaxHeap {
 
   bool isEmpty() const { return root == nullptr; }
 
+  // print the heap in level order
   void printHeap() const {
     if (isEmpty()) {
       cout << "(Empty)";
