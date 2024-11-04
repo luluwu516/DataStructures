@@ -243,14 +243,14 @@ class BinarySearchTree {
           // check if there is a left node
           if (!curr->left) {
             curr->left = newNode;
-            curr = curr->left;  // move curr to the newNode
+            break;
           }
           curr = curr->left;
         } else if (value > curr->data) {
           // check if there is a right node
           if (!curr->right) {
             curr->right = newNode;
-            curr = curr->right;  // move curr to the newNode
+            break;
           }
           curr = curr->right;
         }
@@ -341,7 +341,6 @@ int main() {  // declaration
   BinarySearchTree<int> bst;
   int input;
   bool isRunning = true;
-  char buffer[10];
 
   // input
   cout << "\nEnter numbers, -1 to stop: \n> ";
