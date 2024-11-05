@@ -1,5 +1,35 @@
-.DS_Store
-*
-!/*
-!*.cpp
-!*.pdf
+# Compiled Object files
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+
+# Build directories
+build/
+bin/
+Debug/
+Release/
+
+# Temporary files
+*.tmp
+*~
+*.swp
+
+# IDE-specific files
+.vscode/
+*.DS_Store
