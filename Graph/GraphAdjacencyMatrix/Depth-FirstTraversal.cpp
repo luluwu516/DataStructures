@@ -74,8 +74,7 @@ void GraphAdjacencyMatrix::DFS(const std::string& startLabel) {
       // find the index of current vertex
       int currIndex = findVertexIndex(currLabel);
 
-      // add all unvisited adjacent vertices to stack
-      // reverse order for correct DFS ordering
+      // add all unvisited adjacent vertices to stack in reverse
       for (int i = numVertices - 1; i >= 0; i--) {
         if (adjacencyMatrix[currIndex][i] &&
             std::find(visited.begin(), visited.end(), vertexLabels[i]) ==
@@ -139,10 +138,6 @@ Enter starting vertex for DFS: a
   +-----+
  currIndex
 
-           +-----+
- tempStack (empty)
-           +-----+
-
  adjacencyMatrix:
     | a b c d e
   --+----------
@@ -155,9 +150,6 @@ Enter starting vertex for DFS: a
            +-----+
   visited  |  a  |
            +-----+
-           +-----+-----+-----+
- tempStack |  b  |  d  |  e  |
-           +-----+-----+-----+
            +-----+-----+-----+
   stack    |  e  |  d  |  b  |
            +-----+-----+-----+
@@ -180,10 +172,6 @@ Enter starting vertex for DFS: a
   +-----+
  currIndex
 
-           +-----+
- tempStack (empty)
-           +-----+
-
  adjacencyMatrix:
     | a b c d e
   --+----------
@@ -196,9 +184,6 @@ Enter starting vertex for DFS: a
            +-----+-----+
   visited  |  a  |  b  |
            +-----+-----+
-           +-----+
- tempStack |  c  |
-           +-----+
            +-----+-----+-----+
   stack    |  e  |  d  |  c  |
            +-----+-----+-----+
@@ -237,9 +222,6 @@ Enter starting vertex for DFS: a
            +-----+-----+-----+
   visited  |  a  |  b  |  c  |
            +-----+-----+-----+
-           +-----+
- tempStack |  e  |
-           +-----+
            +-----+-----+-----+
   stack    |  e  |  d  |  e  |
            +-----+-----+-----+
@@ -262,10 +244,6 @@ Enter starting vertex for DFS: a
   +-----+
  currIndex
 
-           +-----+
- tempStack (empty)
-           +-----+
-
  adjacencyMatrix:
     | a b c d e
   --+----------
@@ -278,9 +256,6 @@ Enter starting vertex for DFS: a
            +-----+-----+-----+-----+
   visited  |  a  |  b  |  c  |  e  |
            +-----+-----+-----+-----+
-           +-----+
- tempStack (empty)
-           +-----+
            +-----+-----+
   stack    |  e  |  d  |
            +-----+-----+
@@ -303,10 +278,6 @@ Enter starting vertex for DFS: a
   +-----+
  currIndex
 
-           +-----+
- tempStack (empty)
-           +-----+
-
  adjacencyMatrix:
     | a b c d e
   --+----------
@@ -319,9 +290,6 @@ Enter starting vertex for DFS: a
            +-----+-----+-----+-----+-----+
   visited  |  a  |  b  |  c  |  e  |  d  |
            +-----+-----+-----+-----+-----+
-           +-----+
- tempStack (empty)
-           +-----+
            +-----+
   stack    |  e  |
            +-----+
@@ -338,36 +306,11 @@ Enter starting vertex for DFS: a
            +-----+-----+-----+-----+-----+
   visited  |  a  |  b  |  c  |  e  |  d  |
            +-----+-----+-----+-----+-----+
-
-  +-----+
-  |  4  |
-  +-----+
- currIndex
-
-           +-----+
- tempStack (empty)
-           +-----+
-
- adjacencyMatrix:
-    | a b c d e
-  --+----------
-  a | 0 1 0 1 1
-  b | 1 0 1 0 0
-  c | 0 1 0 0 1
-  d | 1 0 0 0 0
-  e | 1 0 1 0 0  <-- this line
-
-           +-----+-----+-----+-----+-----+
-  visited  |  a  |  b  |  c  |  e  |  d  |
-           +-----+-----+-----+-----+-----+
-           +-----+
- tempStack (empty)
-           +-----+
-           +-----+
-  stack    (empty)
-           +-----+
+                                ^
+                     we visited it before!
 
  // stack is empty!
+ **************************************************
 
 Output:
 DFS starting from a: a b c e d
