@@ -22,13 +22,16 @@ bool GraphAdjacencyMatrix::addVertex(const std::string& label) {
 
   // if number of vertices is less than the size
   if (numVertices < vertexLabels.size()) {
-    vertexLabels[numVertices++] = label;
+    vertexLabels[numVertices] = label;
   } else {
     vertexLabels.push_back(label);
-    adjacencyMatrix.resize(++numVertices);
-    adjacencyMatrix[numVertices - 1].resize(numVertices);
+    adjacencyMatrix.resize(numVertices + 1);
+    for (int i = 0; i < numVertices + 1; i++) {
+      adjacencyMatrix[i].resize(numVertices + 1, 0);
+    }
   }
 
+  numVertices++;
   return true;
 }
 
