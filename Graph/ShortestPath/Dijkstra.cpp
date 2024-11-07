@@ -95,7 +95,7 @@ void WeightedGraph::dijkstra(const std::string& startLabel) {
     if (dist[i] == std::numeric_limits<int>::max()) {
       dist[i] = -1;
     }
-    cout << " * To vertex" << vertexLabels[i] << ": " << dist[i] << "\n";
+    cout << " * To vertex " << vertexLabels[i] << ": " << dist[i] << "\n";
   }
   cout << "\n";
 }
