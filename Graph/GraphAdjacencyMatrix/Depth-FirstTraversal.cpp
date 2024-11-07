@@ -206,10 +206,6 @@ Enter starting vertex for DFS: a
   +-----+
  currIndex
 
-           +-----+
- tempStack (empty)
-           +-----+
-
  adjacencyMatrix:
     | a b c d e
   --+----------
