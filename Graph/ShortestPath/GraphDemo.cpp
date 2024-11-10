@@ -73,6 +73,13 @@ int main() {
         break;
       }
       case 4: {
+        cout << "Enter starting vertex for Kruskal's algorithm: ";
+        cin >> label;
+        cout << "\n";
+        graph.prim(label);
+        break;
+      }
+      case 5: {
         cout << "Exit the program...\n";
         isRunning = false;
         break;
@@ -97,7 +104,8 @@ void printMenu() {
   cout << "| 1. Dijkstra's      |\n";
   cout << "| 2. Floyd-Warshall  |\n";
   cout << "| 3. Kruskal's       |\n";
-  cout << "| 4. Exit            |\n";
+  cout << "| 4. Prim's          |\n";
+  cout << "| 5. Exit            |\n";
   cout << "**********************\n\n";
 }
 
@@ -146,6 +154,25 @@ Enter your choice: 1
 Enter starting vertex for Dijkstra's algorithm: a
 
 The shortest path from vertex a:
+ * To vertex a: 0
+ * To vertex b: 3
+ * To vertex c: 6
+ * To vertex d: 3
+ * To vertex e: 2
+
+
+******** Menu ********
+| 1. Dijkstra's      |
+| 2. Floyd-Warshall  |
+| 3. Kruskal's       |
+| 4. Prim's          |
+| 5. Exit            |
+**********************
+
+Enter your choice: 2
+Enter starting vertex for Floyd-Warshall algorithm: a
+
+Shortest paths from vertex a:
  * To vertex a: 0
  * To vertex b: 3
  * To vertex c: 6
