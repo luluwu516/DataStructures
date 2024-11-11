@@ -19,49 +19,49 @@ These weights could represent various real-world values like:
  * Reliability of connections
 
 Types of Weighted Graphs:
+ * Undirected Weighted Graph (we'll use this type)
+   - Edges have no direction
+   - Weight is same in both directions
+
+ +-----+ 3 +-----+ 6 +-----+
+ |  a  |---|  b  |---|  c  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+
+ |  d  |---|  e  |
+ +-----+   +-----+
+
  * Directed Weighted Graph (Digraph)
    - Edges have direction
    - Weight A->B might differ from B->A
 
  +-----+ 3 +-----+ 7 +-----+
- |  A  |-->|  B  |-->|  C  |
+ |  a  |-->|  b  |-->|  c  |
  |     |<--|     |   |     |
  +--+--+ 6 +-----+   +-----+
     ^   ^           ^
   5 |    \ 2     4 /
     |     \       /
  +--+--+ 8 +-----+
- |  D  |-->|  E  |
+ |  d  |-->|  e  |
  |     |<--|     |
  +-----+ 1 +-----+
-
- * Undirected Weighted Graph
-   - Edges have no direction
-   - Weight is same in both directions
-
- +-----+ 3 +-----+ 6 +-----+
- |  A  |---|  B  |---|  C  |
- +--+--+   +-----+   +-----+
-    |   \           /
-  5 |    \ 2     4 /
-    |     \       /
- +--+--+ 1 +-----+
- |  D  |---|  E  |
- +-----+   +-----+
 
 Common Representations:
 
  +-----+ 3 +-----+ 6 +-----+
- |  A  |---|  B  |---|  C  |
+ |  a  |---|  b  |---|  c  |
  +--+--+   +-----+   +-----+
     |   \           /
   5 |    \ 2     4 /
     |     \       /
  +--+--+ 1 +-----+
- |  D  |---|  E  |
+ |  d  |---|  e  |
  +-----+   +-----+
 
- * Adjacency Matrix
+ * Adjacency Matrix (we'll use this representation)
    - Good for dense graphs
    - O(1) edge lookup
    - O(V^2) space complexity
@@ -118,9 +118,6 @@ class WeightedGraph {
 
   // Floyd-Warshall all pair shortest path
   void floydWarshall(const std::string&);
-
-  // Kruskal's minimum spanning tree algorithm
-  void kruskal(const std::string&);
 
   void printVertices() const;
   void printMatrix() const;

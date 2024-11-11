@@ -4,7 +4,6 @@
 
 #include "Dijkstra.cpp"
 #include "Floyd-Warshall.cpp"
-#include "Kruskal.cpp"
 
 // constructor
 WeightedGraph::WeightedGraph(int size) : numVertices(0) {
@@ -35,6 +34,62 @@ bool WeightedGraph::addVertex(const std::string& label) {
   numVertices++;
   return true;
 }
+/*
+
+ +-----+ 3 +-----+ 6 +-----+
+ |  A  |---|  B  |---|  C  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+
+ |  D  |---|  E  |
+ +-----+   +-----+
+
+Vertices: a b c d e
+
+                +-----+-----+-----+-----+-----+
+  vertexLabels  |  a  |  b  |  c  |  d  |  e  |
+                +-----+-----+-----+-----+-----+
+
+Matrix:
+   | a b c d e
+---+----------
+ a | 0 3 0 5 2
+ b | 3 0 6 0 0
+ c | 0 6 0 0 4
+ d | 5 0 0 0 1
+ e | 2 0 4 1 0
+
+Adding vertex:
+
+ +-----+ 3 +-----+ 6 +-----+
+ |  a  |---|  b  |---|  c  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+   +-----+
+ |  d  |---|  e  |   |  f  |
+ +-----+   +-----+   +-----+
+
+Vertices: a b c d e f
+
+                +-----+-----+-----+-----+-----+-----+
+  vertexLabels  |  a  |  b  |  c  |  d  |  e  |  f  |
+                +-----+-----+-----+-----+-----+-----+
+
+Matrix:
+   | a b c d e f
+---+------------
+ a | 0 3 0 5 2 0
+ b | 3 0 6 0 0 0
+ c | 0 6 0 0 4 0
+ d | 5 0 0 0 1 0
+ e | 2 0 4 1 0 0
+ f | 0 0 0 0 0 0
+
+*/
 
 bool WeightedGraph::addEdge(const std::string& src, const std::string& des,
                             int weight) {
@@ -63,6 +118,51 @@ bool WeightedGraph::addEdge(const std::string& src, const std::string& des,
 
   return true;
 }
+/*
+
+ +-----+ 3 +-----+ 6 +-----+
+ |  a  |---|  b  |---|  c  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+   +-----+
+ |  d  |---|  e  |   |  f  |
+ +-----+   +-----+   +-----+
+
+Matrix:
+   | a b c d e f
+---+------------
+ a | 0 3 0 5 2 0
+ b | 3 0 6 0 0 0
+ c | 0 6 0 0 4 0
+ d | 5 0 0 0 1 0
+ e | 2 0 4 1 0 0
+ f | 0 0 0 0 0 0
+
+Adding edge ef with weight 7:
+
+ +-----+ 3 +-----+ 6 +-----+
+ |  a  |---|  b  |---|  c  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+ 7 +-----+
+ |  d  |---|  e  |---|  f  |
+ +-----+   +-----+   +-----+
+
+Matrix:
+   | a b c d e f
+---+------------
+ a | 0 3 0 5 2 0
+ b | 3 0 6 0 0 0
+ c | 0 6 0 0 4 0
+ d | 5 0 0 0 1 0
+ e | 2 0 4 1 0 7
+ f | 0 0 0 0 7 0
+
+*/
 
 bool WeightedGraph::searchVertex(const std::string& label) const {
   for (int i = 0; i < numVertices; i++) {
@@ -72,6 +172,19 @@ bool WeightedGraph::searchVertex(const std::string& label) const {
   }
   return false;
 }
+/*
+
+Searching vertex f:
+
+Vertices: a b c d e f
+
+                +-----+-----+-----+-----+-----+-----+
+  vertexLabels  |  a  |  b  |  c  |  d  |  e  |  f  |
+                +-----+-----+-----+-----+-----+-----+
+                                                 ^
+                                               found!
+
+*/
 
 bool WeightedGraph::searchEdge(const std::string& src,
                                const std::string& des) const {
@@ -85,6 +198,31 @@ bool WeightedGraph::searchEdge(const std::string& src,
 
   return adjacencyMatrix[srcIndex][desIndex] != 0;
 }
+/*
+
+Searching edge ef:
+
+ +-----+ 3 +-----+ 6 +-----+
+ |  a  |---|  b  |---|  c  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+ 7 +-----+
+ |  d  |---|  e  |---|  f  |
+ +-----+   +-----+   +-----+
+
+Matrix:
+   | a b c d e  f
+---+--------------
+ a | 0 3 0 5 2  0
+ b | 3 0 6 0 0  0
+ c | 0 6 0 0 4  0
+ d | 5 0 0 0 1  0
+ e | 2 0 4 1 0 '7'  <-- found!
+ f | 0 0 0 0 7  0
+
+*/
 
 bool WeightedGraph::removeVertex(const std::string& labelToRemove) {
   int index = findVertexIndex(labelToRemove);
@@ -117,6 +255,50 @@ bool WeightedGraph::removeVertex(const std::string& labelToRemove) {
 
   return true;
 }
+/*
+
+ +-----+ 3 +-----+ 6 +-----+
+ |  a  |---|  b  |---|  c  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+ 7 +-----+
+ |  d  |---|  e  |---|  f  |
+ +-----+   +-----+   +-----+
+
+Matrix:
+   | a b c d e f
+---+------------
+ a | 0 3 0 5 2 0
+ b | 3 0 6 0 0 0
+ c | 0 6 0 0 4 0
+ d | 5 0 0 0 1 0
+ e | 2 0 4 1 0 7
+ f | 0 0 0 0 7 0
+
+Removing vertex f:
+
+ +-----+ 3 +-----+ 6 +-----+
+ |  a  |---|  b  |---|  c  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+
+ |  d  |---|  e  |
+ +-----+   +-----+
+
+Matrix:
+   | a b c d e
+---+----------
+ a | 0 3 0 5 2
+ b | 3 0 6 0 0
+ c | 0 6 0 0 4
+ d | 5 0 0 0 1
+ e | 2 0 4 1 0
+
+*/
 
 bool WeightedGraph::removeEdge(const std::string& src, const std::string& des) {
   int srcIndex = findVertexIndex(src);
@@ -139,6 +321,49 @@ bool WeightedGraph::removeEdge(const std::string& src, const std::string& des) {
 
   return true;
 }
+/*
+
+ +-----+ 3 +-----+ 6 +-----+
+ |  a  |---|  b  |---|  c  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+
+ |  d  |---|  e  |
+ +-----+   +-----+
+
+Matrix:
+   | a b c d e
+---+----------
+ a | 0 3 0 5 2
+ b | 3 0 6 0 0
+ c | 0 6 0 0 4
+ d | 5 0 0 0 1
+ e | 2 0 4 1 0
+
+Removing edge bc:
+
+ +-----+ 3 +-----+   +-----+
+ |  a  |---|  b  |   |  c  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+
+ |  d  |---|  e  |
+ +-----+   +-----+
+
+Matrix:
+   | a  b  c  d e
+---+-------------
+ a | 0  3  0  5 2
+ b | 3  0 '0' 0 0
+ c | 0 '0' 0  0 4
+ d | 5  0  0  0 1
+ e | 2  0  4  1 0
+
+*/
 
 int WeightedGraph::getNumVertices() const { return numVertices; }
 
@@ -152,6 +377,39 @@ int WeightedGraph::getWeight(const std::string& src,
 
   return adjacencyMatrix[srcIndex][desIndex];
 }
+/*
+
+ +-----+ 3 +-----+   +-----+
+ |  a  |---|  b  |   |  c  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+
+ |  d  |---|  e  |
+ +-----+   +-----+
+
+Matrix:
+   | a b c d e
+---+----------
+ a | 0 3 0 5 2
+ b | 3 0 0 0 0
+ c | 0 0 0 0 4
+ d | 5 0 0 0 1
+ e | 2 0 4 1 0
+
+Getting the weight of edge ae:
+
+Matrix:
+   | a b c d  e
+---+------------
+ a | 0 3 0 5 '2'  <-- return 2
+ b | 3 0 0 0  0
+ c | 0 0 0 0  4
+ d | 5 0 0 0  1
+ e | 2 0 4 1  0
+
+*/
 
 bool WeightedGraph::isEmpty() const { return numVertices == 0; }
 

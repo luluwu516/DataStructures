@@ -7,6 +7,20 @@
 Dijkstra's Algorithm is a graph search algorithm that solves the single-source
 shortest path problem for a graph with non-negative edge weights.
 
+How it works:
+1. Initialize distances of all vertices as infinity except the source vertex
+   (initialized to 0)
+2. Mark all nodes as unvisited
+3. For the current vertex, consider all its unvisited neighbors
+4. Calculate their tentative distances through the current vertex
+5. If this calculated distance is less than the previously recorded distance,
+   update it
+6. Mark the current vertex as visited
+7. Select the unvisited vertex with smallest tentative distance and set it as
+   the new current vertex
+8. Repeat steps 3-7 until all vertices are visited
+
+
  Characteristics:
  * Greedy approach - always selects the minimum-weight path
  * Works on both directed and undirected graphs
@@ -17,7 +31,7 @@ shortest path problem for a graph with non-negative edge weights.
  * With binary heap: O((V + E) log V)
    - V is the number of vertices
    - E is the number of edges
- * With array implementation: O(V²)
+ * With array implementation: O(V^2)
    - Space Complexity: O(V)
 
  Space Complexity: O(V)
@@ -33,6 +47,25 @@ shortest path problem for a graph with non-negative edge weights.
  * May be slower for sparse graphs compared to other algorithms
  * Requires all nodes to be accessible
  * Can be memory-intensive for very large graphs
+
+
+ When to use
+ * Dense Graphs
+ * Single-Source Shortest Path
+ * Non-Negative Edge Weights (If graph has negative edge weights, use a
+   different algorithm like Bellman-Ford)
+ * Reachable Vertices
+ * Weighted Graphs (If graph is an unweighted graph, a simpler algorithm like
+   Breadth-First Search (BFS) may be more appropriate)
+
+ When NOT to use:
+ * Sparse Graphs
+ * Negative Edge Weights Dijkstra's algorithm cannot handle (graphs with
+   negative edge weights)
+ * All-Pairs Shortest Path (Floyd-Warshall algorithm or Johnson's algorithm may
+   be more appropriate)
+ * Frequent Edge Weight Changes (if the edge weights change frequently, we'll
+   need to rerun the entire algorithm, which can be computationally expensive)
 
 */
 
@@ -103,13 +136,13 @@ void WeightedGraph::dijkstra(const std::string& startLabel) {
 /*
 
  +-----+ 3 +-----+ 6 +-----+
- |  A  |---|  B  |---|  C  |
+ |  a  |---|  b  |---|  c  |
  +--+--+   +-----+   +-----+
     |   \           /
   5 |    \ 2     4 /
     |     \       /
  +--+--+ 1 +-----+
- |  D  |---|  E  |
+ |  d  |---|  e  |
  +-----+   +-----+
 
         0 1 2 3 4

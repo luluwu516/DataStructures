@@ -9,6 +9,13 @@ algorithm, the Roy–Floyd algorithm, or the WFI algorithm. It is a dynamic
 programming algorithm that finds the shortest paths between all pairs of
 vertices in a weighted graph.
 
+How it works:
+1. Initial distance matrix with direct edges. Set diagonal elements to 0 and
+   non-existing edges to infinity.
+2. Try each vertex (k) as an intermediate and update if path through k is
+   shorter
+
+
  Characteristics:
  * All-Pairs Shortest Path: Finds shortest paths between every pair of vertices
  * Handles Negative Weights: Can work with negative edge weights
@@ -42,6 +49,21 @@ vertices in a weighted graph.
  * Not suitable for large graphs due to cubic time complexity
  * Doesn't provide the actual paths without additional bookkeeping
  * May not be efficient for single-source shortest path problems
+
+
+ When to Use
+ * Dense graphs where |E| is close to |V^2|
+ * Need all-pairs shortest paths
+ * Graph has negative edges (but no negative cycles)
+ * Graph size is relatively small (hundreds of vertices)
+ * Simplicity of implementation is prioritized
+
+ When NOT to Use
+ * Large graphs (thousands of vertices)
+ * Sparse graphs
+ * Only need single-source shortest paths
+ * Memory is constrained
+ * Real-time applications requiring faster processing
 
 */
 

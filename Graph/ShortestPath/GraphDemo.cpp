@@ -66,20 +66,6 @@ int main() {
         break;
       }
       case 3: {
-        cout << "Enter starting vertex for Kruskal's algorithm: ";
-        cin >> label;
-        cout << "\n";
-        graph.kruskal(label);
-        break;
-      }
-      case 4: {
-        cout << "Enter starting vertex for Kruskal's algorithm: ";
-        cin >> label;
-        cout << "\n";
-        graph.prim(label);
-        break;
-      }
-      case 5: {
         cout << "Exit the program...\n";
         isRunning = false;
         break;
@@ -103,9 +89,7 @@ void printMenu() {
   cout << "\n******** Menu ********\n";
   cout << "| 1. Dijkstra's      |\n";
   cout << "| 2. Floyd-Warshall  |\n";
-  cout << "| 3. Kruskal's       |\n";
-  cout << "| 4. Prim's          |\n";
-  cout << "| 5. Exit            |\n";
+  cout << "| 3. Exit            |\n";
   cout << "**********************\n\n";
 }
 
@@ -132,6 +116,17 @@ Enter an edge and its weight (a b 1), -1 to stop:
 
 
 Initial Graph:
+
+ +-----+ 3 +-----+ 6 +-----+
+ |  a  |---|  b  |---|  c  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+
+ |  d  |---|  e  |
+ +-----+   +-----+
+
 Vertices: a b c d e
 Matrix:
    | a b c d e
@@ -146,12 +141,21 @@ Matrix:
 ******** Menu ********
 | 1. Dijkstra's      |
 | 2. Floyd-Warshall  |
-| 3. Kruskal's       |
-| 4. Exit            |
+| 3. Exit            |
 **********************
 
 Enter your choice: 1
 Enter starting vertex for Dijkstra's algorithm: a
+
+ +-----+ 3 +-----+ 6 +-----+
+ |  a  |---|  b  |---|  c  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+
+ |  d  |---|  e  |
+ +-----+   +-----+
 
 The shortest path from vertex a:
  * To vertex a: 0
@@ -164,13 +168,21 @@ The shortest path from vertex a:
 ******** Menu ********
 | 1. Dijkstra's      |
 | 2. Floyd-Warshall  |
-| 3. Kruskal's       |
-| 4. Prim's          |
-| 5. Exit            |
+| 3. Exit            |
 **********************
 
 Enter your choice: 2
 Enter starting vertex for Floyd-Warshall algorithm: a
+
+ +-----+ 3 +-----+ 6 +-----+
+ |  a  |---|  b  |---|  c  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+
+ |  d  |---|  e  |
+ +-----+   +-----+
 
 Shortest paths from vertex a:
  * To vertex a: 0
@@ -183,14 +195,24 @@ Shortest paths from vertex a:
 ******** Menu ********
 | 1. Dijkstra's      |
 | 2. Floyd-Warshall  |
-| 3. Kruskal's       |
-| 4. Exit            |
+| 3. Exit            |
 **********************
 
-Enter your choice: 4
+Enter your choice: 3
 Exit the program...
 
 Final Graph:
+
+ +-----+ 3 +-----+ 6 +-----+
+ |  a  |---|  b  |---|  c  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+
+ |  d  |---|  e  |
+ +-----+   +-----+
+
 Vertices: a b c d e
 Matrix:
    | a b c d e
