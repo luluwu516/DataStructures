@@ -83,19 +83,20 @@ class GraphAdjacencyMatrix {
   // constructor
   GraphAdjacencyMatrix(int);
 
-  bool addVertex(const std::string&);
-  bool addEdge(const std::string&, const std::string&);
-  bool searchLabel(const std::string&) const;
-  bool searchEdge(const std::string&, const std::string&) const;
-  bool removeVertex(const std::string&);
-  bool removeEdge(const std::string&, const std::string&);
+  bool addVertex(const std::string &);
+  bool addEdge(const std::string &, const std::string &);
+  bool searchLabel(const std::string &) const;
+  bool searchEdge(const std::string &, const std::string &) const;
+  bool removeVertex(const std::string &);
+  bool removeEdge(const std::string &, const std::string &);
   bool isEmpty() const;
 
   // breadth-first traversal
-  void BFS(const std::string&);
+  void BFS(const std::string &);
 
   // depth-first traversal
-  void DFS(const std::string&);
+  void DFS(const std::string &);
+  void DFSrecursive(const std::string &);
 
   void printVertices() const;
   void printMatrix() const;
@@ -106,7 +107,8 @@ class GraphAdjacencyMatrix {
   std::vector<std::vector<int>> adjacencyMatrix;
   std::vector<std::string> vertexLabels;
 
-  int findVertexIndex(const std::string&) const;
+  int findVertexIndex(const std::string &) const;
+  void DFSRec(std::vector<bool> &, int);
 };
 
 #endif

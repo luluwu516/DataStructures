@@ -4,6 +4,7 @@
 
 #include "Breadth-FirstTraversal.cpp"
 #include "Depth-FirstTraversal.cpp"
+#include "Depth-FirstTraversalRecursive.cpp"
 
 // constructor
 GraphAdjacencyMatrix::GraphAdjacencyMatrix(int size) : numVertices(0) {
