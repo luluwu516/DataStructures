@@ -115,9 +115,10 @@ void GraphAdjacencyList::addDirectedEdge(const std::string& label,
                                          const int& desIndex) {
   Node* newNode = new Node(label);
   Node* curr = adjacencyList[srcIndex];
-  while (curr->next) {
+  while (curr->next && curr->label > label) {
     curr = curr->next;
   }
+  newNode->next = curr->next;
   curr->next = newNode;
 }
 
