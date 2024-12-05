@@ -93,13 +93,130 @@ void printMenu() {
 // Output:
 /*
 
+Enter 5 labels:
+> a b c d e
 
+Enter an edge and its weight (a b 1), -1 to stop:
+> a b 3
+...Added edge a-b with weight 3
+> a d 5
+...Added edge a-d with weight 5
+> a e 2
+...Added edge a-e with weight 2
+> b c 6
+...Added edge b-c with weight 6
+> c e 4
+...Added edge c-e with weight 4
+> d e 1
+...Added edge d-e with weight 1
+> -1
+
+
+Initial Graph:
+Vertices: a b c d e
+
+ +-----+ 3 +-----+ 6 +-----+
+ |  a  |---|  b  |---|  c  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+
+ |  d  |---|  e  |
+ +-----+   +-----+
+
+Matrix:
+   | a b c d e
+---+----------
+ a | 0 3 0 5 2
+ b | 3 0 6 0 0
+ c | 0 6 0 0 4
+ d | 5 0 0 0 1
+ e | 2 0 4 1 0
+
+Edges:
+ a-b 3
+ a-d 5
+ a-e 2
+ b-c 6
+ c-e 4
+ d-e 1
+
+
+****** Menu ******
+| 1. Kruskal's   |
+| 2. Prim's      |
+| 3. Exit        |
+******************
+
+Enter your choice: 1
+Minimum Spanning Tree (Kruskal's):
+ d-e 1
+ a-e 2
+ a-b 3
+ c-e 4
+
+ +-----+ 3 +-----+   +-----+
+ |  a  |---|  b  |   |  c  |
+ +--+--+   +-----+   +-----+
+        \           /
+         \ 2     4 /
+          \       /
+ +--+--+ 1 +-----+
+ |  d  |---|  e  |
+ +-----+   +-----+
+
+Total MST weight: 10
+
+****** Menu ******
+| 1. Kruskal's   |
+| 2. Prim's      |
+| 3. Exit        |
+******************
+
+Enter your choice: 2
+Enter starting vertex for Prim's algorithm: a
+
+Prim's Minimum Spanning Tree (starting from a):
+Edges in MST:
+ a-e 2
+ e-d 1
+ a-b 3
+ e-c 4
+
+ +-----+ 3 +-----+   +-----+
+ |  a  |---|  b  |   |  c  |
+ +--+--+   +-----+   +-----+
+        \           /
+         \ 2     4 /
+          \       /
+ +--+--+ 1 +-----+
+ |  d  |---|  e  |
+ +-----+   +-----+
+
+Total weight: 10
+
+****** Menu ******
+| 1. Kruskal's   |
+| 2. Prim's      |
+| 3. Exit        |
 ******************
 
 Enter your choice: 3
 Exit the program...
 
 Final Graph:
+
+ +-----+ 3 +-----+ 6 +-----+
+ |  a  |---|  b  |---|  c  |
+ +--+--+   +-----+   +-----+
+    |   \           /
+  5 |    \ 2     4 /
+    |     \       /
+ +--+--+ 1 +-----+
+ |  d  |---|  e  |
+ +-----+   +-----+
+
 Vertices: a b c d e
 
 Matrix:

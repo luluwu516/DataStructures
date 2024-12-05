@@ -17,6 +17,7 @@ struct Edge {
       : src(srcLabel), des(desLabel), weight(w) {}
 
   bool operator<(const Edge& other) const { return weight < other.weight; }
+  bool operator>(const Edge& other) const { return weight > other.weight; }
 };
 
 /*
