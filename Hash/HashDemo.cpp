@@ -97,4 +97,188 @@ void printMenu() {
 // Sample Output
 /*
 
+Enter numbers, -1 to stop:
+> 1 2 3 4 5 -1
+
+
+Initial Table:
+
+            0     1     2     3     4
+         +-----+-----+-----+-----+-----+
+  Table  |  5  |  1  |  2  |  3  |  4  |
+         +-----+-----+-----+-----+-----+
+
+Index 0: 5
+Index 1: 1
+Index 2: 2
+Index 3: 3
+Index 4: 4
+
+**** Menu ****
+| 1. Add     |
+| 2. Lookup  |
+| 3. Remove  |
+| 4. Print   |
+| 5. Exit    |
+**************
+
+Enter your choice: 1
+Enter a number to add: 6
+
+...Table is full! Stop adding.
+
+            0     1     2     3     4
+         +-----+-----+-----+-----+-----+
+  Table  |  5  |  1  |  2  |  3  |  4  |
+         +-----+-----+-----+-----+-----+
+
+**** Menu ****
+| 1. Add     |
+| 2. Lookup  |
+| 3. Remove  |
+| 4. Print   |
+| 5. Exit    |
+**************
+
+Enter your choice: 2
+Enter a number to search: 2
+
+...Found 2 at index 2
+
+            0     1     2     3     4
+         +-----+-----+-----+-----+-----+
+  Table  |  5  |  1  |  2  |  3  |  4  |
+         +-----+-----+-----+-----+-----+
+                        ^
+
+**** Menu ****
+| 1. Add     |
+| 2. Lookup  |
+| 3. Remove  |
+| 4. Print   |
+| 5. Exit    |
+**************
+
+Enter your choice: 2
+Enter a number to search: 6
+
+...Number 6 not found!
+
+            0     1     2     3     4
+         +-----+-----+-----+-----+-----+
+  Table  |  5  |  1  |  2  |  3  |  4  |
+         +-----+-----+-----+-----+-----+
+
+**** Menu ****
+| 1. Add     |
+| 2. Lookup  |
+| 3. Remove  |
+| 4. Print   |
+| 5. Exit    |
+**************
+
+Enter your choice: 3
+Enter a number to delete: 2
+
+...Number 2 is removed
+
+            0     1     2     3     4
+         +-----+-----+-----+-----+-----+
+  Table  |  5  |  1  |  D  |  3  |  4  |
+         +-----+-----+-----+-----+-----+
+
+**** Menu ****
+| 1. Add     |
+| 2. Lookup  |
+| 3. Remove  |
+| 4. Print   |
+| 5. Exit    |
+**************
+
+Enter your choice: 2
+Enter a number to search: 2
+
+...Number 2 not found!
+
+            0     1     2     3     4
+         +-----+-----+-----+-----+-----+
+  Table  |  5  |  1  |  D  |  3  |  4  |
+         +-----+-----+-----+-----+-----+
+                        ^
+
+**** Menu ****
+| 1. Add     |
+| 2. Lookup  |
+| 3. Remove  |
+| 4. Print   |
+| 5. Exit    |
+**************
+
+Enter your choice: 1
+Enter a number to add: 9
+
+            0     1     2     3     4
+         +-----+-----+-----+-----+-----+
+  Table  |  5  |  1  |  D  |  3  |  4  |
+         +-----+-----+-----+-----+-----+
+                                    ^
+
+            0     1     2     3     4
+         +-----+-----+-----+-----+-----+
+  Table  |  5  |  1  |  D  |  3  |  4  |
+         +-----+-----+-----+-----+-----+
+            ^
+
+            0     1     2     3     4
+         +-----+-----+-----+-----+-----+
+  Table  |  5  |  1  |  D  |  3  |  4  |
+         +-----+-----+-----+-----+-----+
+                  ^
+
+            0     1     2     3     4
+         +-----+-----+-----+-----+-----+
+  Table  |  5  |  1  |  D  |  3  |  4  |
+         +-----+-----+-----+-----+-----+
+                        ^
+
+            0     1     2     3     4
+         +-----+-----+-----+-----+-----+
+  Table  |  5  |  1  |  9  |  3  |  4  |
+         +-----+-----+-----+-----+-----+
+
+...Added 9
+
+**** Menu ****
+| 1. Add     |
+| 2. Lookup  |
+| 3. Remove  |
+| 4. Print   |
+| 5. Exit    |
+**************
+
+Enter your choice: 4
+Index 0: 5
+Index 1: 1
+Index 2: 9
+Index 3: 3
+Index 4: 4
+
+**** Menu ****
+| 1. Add     |
+| 2. Lookup  |
+| 3. Remove  |
+| 4. Print   |
+| 5. Exit    |
+**************
+
+Enter your choice: 5
+Exit the program...
+
+Final Table:
+Index 0: 5
+Index 1: 1
+Index 2: 9
+Index 3: 3
+Index 4: 4
+
 */
